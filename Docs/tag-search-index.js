@@ -1,0 +1,1 @@
+tagSearchIndex = [{"l":"Dice","h":"class DiceRoller.Dice","d":"Section","u":"DiceRoller/Dice.html#dice-heading"},{"l":"DiceRoller","h":"class DiceRoller.DiceRoller","d":"Section","u":"DiceRoller/DiceRoller.html#diceroller-heading"}];updateSearchResults();
