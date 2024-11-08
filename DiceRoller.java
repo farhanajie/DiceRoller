@@ -7,8 +7,7 @@ import java.util.Scanner;
 
 /**
  * <h1>DiceRoller</h1>
- * A program that allows the user to add, remove, roll, and delete a list of
- * dice.
+ * Program untuk menambahkan, menghapus, dan mengocok list dadu.
  *
  * @author Farhan Purnama Adjie
  * @version 1.0
@@ -18,6 +17,14 @@ public class DiceRoller {
     private ArrayList<Dice> dice_list;
     private Scanner scanner;
 
+    /**
+     * Fungsi utama. Membuat objek <code>DiceRoller</code> baru, dan masuk ke
+     * infinite loop yang berisi clear console, menampilkan semua dadu dalam
+     * program, dan kemudian menampilkan dan meminta pengguna untuk memilih pilihan
+     * menu.
+     *
+     * @param args unused
+     */
     public static void main(String[] args) {
         DiceRoller diceRoller = new DiceRoller();
         while (true) {
@@ -28,7 +35,8 @@ public class DiceRoller {
     }
 
     /**
-     * Class constructor specifying an empty list of dice and a scanner.
+     * Constructor kelas yang membuat objek list dadu dan scanner untuk
+     * input.
      */
     public DiceRoller() {
         this.dice_list = new ArrayList<>();
@@ -36,7 +44,7 @@ public class DiceRoller {
     }
 
     /**
-     * Prints out a list of all the dice that are currently in the program.
+     * Menampilkan semua dadu yang ada dalam {@link #dice_list}.
      */
     public void showAllDice() {
         System.out.print("Dice List: ");
@@ -47,8 +55,8 @@ public class DiceRoller {
     }
 
     /**
-     * Prints out a list of all the dice in the program by printing each dice's
-     * name, separated by spaces.
+     * Menampilkan semua dadu yang ada dalam {@link #dice_list} dengan menuliskan
+     * setiap nama dadu, dengan spasi sebagai pemisah.
      */
     private void printDiceList() {
         for (Dice dice : this.dice_list) {
@@ -57,8 +65,8 @@ public class DiceRoller {
     }
 
     /**
-     * Displays the menu, prompts the user for their choice, and executes the
-     * corresponding action based on the user's input.
+     * Menampilkan menu, mengambil input dari pengguna, dan mengeksekusi aksi yang
+     * sesuai dengan pilihan pengguna.
      */
     public void menu() {
         this.showMenu();
@@ -67,9 +75,9 @@ public class DiceRoller {
     }
 
     /**
-     * Prints out a menu for the user to select an option with. The options are
-     * to add a dice, remove a dice, roll all dice, delete all dice, or exit the
-     * program.
+     * Menampilkan menu yang dapat dipilih oleh pengguna untuk melakukan aksi. Aksi
+     * yang dapat dilakukan adalah menambahkan dadu, menghapus dadu, mengocok semua
+     * dadu, menghapus semua dadu, atau keluar dari program.
      */
     private void showMenu() {
         System.out.println("1. Add a dice");
@@ -80,10 +88,10 @@ public class DiceRoller {
     }
 
     /**
-     * Asks the user for input and returns an integer representing the user's
-     * choice, which should be one of the numbers 1 to 5.
+     * Meminta input pengguna dan mengembalikan sebuah integer yang
+     * merepresentasikan pilihan pengguna.
      *
-     * @return an integer representing the user's choice.
+     * @return sebuah integer yang merepresentasikan pilihan pengguna
      */
     private int inputMenu() {
         System.out.print("Enter your choice: ");
@@ -91,15 +99,15 @@ public class DiceRoller {
     }
 
     /**
-     * Executes an action based on the user's menu choice.
+     * Melakukan aksi yang sesuai dengan pilihan pengguna.
      *
-     * @param choice an integer representing the user's menu selection, where:
-     *               1 - adds a dice,
-     *               2 - removes a dice,
-     *               3 - rolls all dice and shows the result,
-     *               4 - deletes all dice,
-     *               5 - exits the program.
-     *               Any other choice prints an invalid choice message.
+     * @param choice sebuah integer yang merepresentasikan pilihan pengguna, yaitu:
+     *               1: menambahkan dadu
+     *               2: menghapus dadu
+     *               3: mengocok semua dadu
+     *               4: menghapus semua dadu
+     *               5: keluar
+     *               selain itu: menampilkan pesan bahwa pilihan tidak valid
      */
     private void chooseMenu(int choice) {
         switch (choice) {
@@ -125,19 +133,20 @@ public class DiceRoller {
     }
 
     /**
-     * Asks the user for the number of sides of a dice, creates a new
-     * {@link Dice} object with that number of sides, and adds it to the
-     * {@link #dice_list}.
+     * Meminta input dari pengguna untuk jumlah sisi dadu, membuat objek
+     * {@link Dice} baru dengan jumlah sisi yang diberikan, dan menambahkan
+     * objek ini ke {@link #dice_list}.
      */
     private void addDice() {
-        Dice dice = this.makeDice();
+        int side = inputDiceSideNumber();
+        Dice dice = this.makeDice(side);
         this.dice_list.add(dice);
     }
 
     /**
-     * Asks the user for the number of sides of a dice and removes the
-     * first dice with that number of sides from the {@link #dice_list}.
-     * If there is no dice with that number of sides, does nothing.
+     * Meminta input dari pengguna untuk jumlah sisi dadu, mencari dadu dengan
+     * sisi yang diberikan, dan menghapus dadu tersebut dari {@link #dice_list}.
+     * Jika tidak ada dadu dengan jumlah sisi tersebut, tidak melakukan apa-apa.
      */
     private void removeDice() {
         int side = inputDiceSideNumber();
@@ -148,8 +157,8 @@ public class DiceRoller {
     }
 
     /**
-     * Clears the console, prints out the result of rolling all the dice in the
-     * program, and then waits for the user to press any key.
+     * Clear console, menampilkan semua dadu dari map yang berisi nama dan hasil
+     * kocokan dadu, dan menunggu pengguna untuk menekan tombol.
      */
     private void showRollResult() {
         cls();
@@ -162,11 +171,10 @@ public class DiceRoller {
     }
 
     /**
-     * Rolls all the dice in the program and returns a map where the keys are
-     * the names of the dice and the values are the results of the dice roll.
+     * Mengocok semua dadu dalam {@link #dice_list} dan mengembalikan sebuah map
+     * yang merepresentasikan nama dan hasil kocokan dadu.
      *
-     * @return a map where the keys are the names of the dice and the values are
-     *         the results of the dice roll.
+     * @return sebuah map yang berisi nama dan hasil kocokan dadu
      */
     private Map<String, Integer> rollAllDice() {
         Map<String, Integer> result = new java.util.HashMap<>();
@@ -177,21 +185,19 @@ public class DiceRoller {
     }
 
     /**
-     * Clears the {@link #dice_list} by removing all the dice from it. This
-     * means that there will be no dice left in the program.
+     * Menghapus semua dadu dalam {@link #dice_list}.
      */
     private void removeAllDice() {
         this.dice_list.clear();
     }
 
     /**
-     * Searches the {@link #dice_list} for the first dice with a certain number
-     * of sides and returns the index of that dice in the list. If no dice with
-     * that number of sides is found, returns -1.
+     * Mencari dadu dalam {@link #dice_list} dengan sisi yang diberikan dan
+     * mengembalikan indeksnya. Jika tidak ada dadu dengan sisi tersebut,
+     * mengembalikan -1.
      *
-     * @param side the number of sides to search for.
-     * @return the index of the first dice with the given number of sides, or
-     *         -1 if no dice with that number of sides is found.
+     * @param side jumlah sisi dari dadu yang ingin dicari
+     * @return indeks dari dadu pertama yang ditemukan, atau -1 jika tidak ditemukan
      */
     private int searchDice(int side) {
         int index = -1;
@@ -205,22 +211,21 @@ public class DiceRoller {
     }
 
     /**
-     * Asks the user for the number of sides of a dice and creates a new
-     * {@link Dice} object with that number of sides.
+     * Membuat objek {@link Dice} baru dengan jumlah sisi yang diberikan.
      *
-     * @return a new {@link Dice} object created with the user's input.
+     * @param side jumlah sisi dari dadu yang ingin dibuat.
+     * @return objek {@link Dice} baru dengan sisi yang diberikan.
      */
-    private Dice makeDice() {
-        int side = inputDiceSideNumber();
+    private Dice makeDice(int side) {
         Dice dice = new Dice(side);
         return dice;
     }
 
     /**
-     * Asks the user for the number of sides of a dice and returns the
-     * number that the user entered.
+     * Meminta input dari pengguna untuk jumlah sisi dadu dan mengembalikan
+     * jumlah sisi yang diberikan.
      *
-     * @return the number of sides of the dice that the user entered.
+     * @return sebuah integer yang merepresentasikan jumlah sisi dadu.
      */
     private int inputDiceSideNumber() {
         System.out.print("Enter the number of sides: ");
@@ -229,9 +234,8 @@ public class DiceRoller {
     }
 
     /**
-     * Clears the console screen. Currently, this implementation only supports
-     * clearing the screen on Windows operating systems. If an error occurs
-     * during the execution of the command, the stack trace is printed.
+     * Menghapus layar konsol. Saat ini hanya mendukung
+     * membersihkan layar konsol pada sistem operasi Windows.
      */
     public final static void cls() {
         try {
@@ -244,9 +248,7 @@ public class DiceRoller {
     }
 
     /**
-     * Waits for the user to press any key before continuing. This is used to
-     * pause the program and prevent the console window from closing
-     * immediately after the program is run from an IDE.
+     * Menunggu pengguna menekan tombol apapun untuk melanjutkan program.
      */
     public final static void pause() {
         try {

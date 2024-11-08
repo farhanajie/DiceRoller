@@ -2,7 +2,7 @@ package DiceRoller;
 
 /**
  * <h1>Dice</h1>
- * A class that represents a single dice with a certain number of sides.
+ * Kelas yang merepresentasikan dadu.
  *
  * @author Farhan Purnama Adjie
  * @version 1.0
@@ -12,36 +12,35 @@ public class Dice {
     private int side;
 
     /**
-     * Class constructor specifying the number of sides on the dice.
+     * Constructor kelas ini digunakan untuk membuat objek <code>Dice</code> baru
+     * dengan menentukan jumlah sisi.
      */
     public Dice(int side) {
         this.side = side;
     }
 
     /**
-     * Rolls the dice and returns a random integer between 1 and the number of sides
-     * on the dice.
+     * Mengocok dadu dan mengembalikan nilai acak antara 1 dan jumlah sisi dadu.
      *
-     * @return a random integer representing the result of the dice roll.
+     * @return sebuah integer acak antara 1 dan jumlah sisi dadu.
      */
     public int roll() {
         return (int) (Math.random() * this.side) + 1;
     }
 
     /**
-     * Returns the number of sides on this dice.
+     * Mengembalikan jumlah sisi dadu.
      *
-     * @return the number of sides on this dice.
+     * @return sebuah integer yang merepresentasikan jumlah sisi dadu.
      */
     public int getSide() {
         return this.side;
     }
 
     /**
-     * Returns the name of this dice in the format "Dx" where x is the number of
-     * sides.
+     * Mengembalikan nama dadu dengan format "Dx" dimana x adalah jumlah sisi dadu.
      *
-     * @return the name of this dice.
+     * @return sebuah string yang merepresentasikan nama dadu.
      */
     public String getDiceName() {
         return "D" + this.side;
