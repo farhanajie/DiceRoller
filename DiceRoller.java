@@ -164,8 +164,8 @@ public class DiceRoller {
         cls();
         System.out.println("Result: ");
         Map<String, Integer> result = this.rollAllDice();
-        for (String key : result.keySet()) {
-            System.out.println(key + " = " + result.get(key));
+        for (String diceName : result.keySet()) {
+            System.out.println(diceName + " = " + result.get(diceName));
         }
         pause();
     }
