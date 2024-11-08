@@ -23,9 +23,7 @@ public class DiceRoller {
         while (true) {
             cls();
             diceRoller.showAllDice();
-            diceRoller.showMenu();
-            int choice = diceRoller.inputMenu();
-            diceRoller.chooseMenu(choice);
+            diceRoller.menu();
         }
     }
 
@@ -59,11 +57,21 @@ public class DiceRoller {
     }
 
     /**
+     * Displays the menu, prompts the user for their choice, and executes the
+     * corresponding action based on the user's input.
+     */
+    public void menu() {
+        this.showMenu();
+        int choice = this.inputMenu();
+        this.chooseMenu(choice);
+    }
+
+    /**
      * Prints out a menu for the user to select an option with. The options are
      * to add a dice, remove a dice, roll all dice, delete all dice, or exit the
      * program.
      */
-    public void showMenu() {
+    private void showMenu() {
         System.out.println("1. Add a dice");
         System.out.println("2. Remove a dice");
         System.out.println("3. Roll all dice");
@@ -77,7 +85,7 @@ public class DiceRoller {
      *
      * @return an integer representing the user's choice.
      */
-    public int inputMenu() {
+    private int inputMenu() {
         System.out.print("Enter your choice: ");
         return this.scanner.nextInt();
     }
@@ -93,7 +101,7 @@ public class DiceRoller {
      *               5 - exits the program.
      *               Any other choice prints an invalid choice message.
      */
-    public void chooseMenu(int choice) {
+    private void chooseMenu(int choice) {
         switch (choice) {
             case 1:
                 this.addDice();
@@ -127,30 +135,6 @@ public class DiceRoller {
     }
 
     /**
-     * Asks the user for the number of sides of a dice and creates a new
-     * {@link Dice} object with that number of sides.
-     *
-     * @return a new {@link Dice} object created with the user's input.
-     */
-    private Dice makeDice() {
-        int side = inputDiceSideNumber();
-        Dice dice = new Dice(side);
-        return dice;
-    }
-
-    /**
-     * Asks the user for the number of sides of a dice and returns the
-     * number that the user entered.
-     *
-     * @return the number of sides of the dice that the user entered.
-     */
-    private int inputDiceSideNumber() {
-        System.out.print("Enter the number of sides: ");
-        int side = this.scanner.nextInt();
-        return side;
-    }
-
-    /**
      * Asks the user for the number of sides of a dice and removes the
      * first dice with that number of sides from the {@link #dice_list}.
      * If there is no dice with that number of sides, does nothing.
@@ -161,26 +145,6 @@ public class DiceRoller {
         if (index >= 0) {
             this.dice_list.remove(index);
         }
-    }
-
-    /**
-     * Searches the {@link #dice_list} for the first dice with a certain number
-     * of sides and returns the index of that dice in the list. If no dice with
-     * that number of sides is found, returns -1.
-     *
-     * @param side the number of sides to search for.
-     * @return the index of the first dice with the given number of sides, or
-     *         -1 if no dice with that number of sides is found.
-     */
-    private int searchDice(int side) {
-        int index = -1;
-        for (Dice dice : this.dice_list) {
-            if (dice.getSide() == side) {
-                index = this.dice_list.indexOf(dice);
-                break;
-            }
-        }
-        return index;
     }
 
     /**
@@ -218,6 +182,50 @@ public class DiceRoller {
      */
     private void removeAllDice() {
         this.dice_list.clear();
+    }
+
+    /**
+     * Searches the {@link #dice_list} for the first dice with a certain number
+     * of sides and returns the index of that dice in the list. If no dice with
+     * that number of sides is found, returns -1.
+     *
+     * @param side the number of sides to search for.
+     * @return the index of the first dice with the given number of sides, or
+     *         -1 if no dice with that number of sides is found.
+     */
+    private int searchDice(int side) {
+        int index = -1;
+        for (Dice dice : this.dice_list) {
+            if (dice.getSide() == side) {
+                index = this.dice_list.indexOf(dice);
+                break;
+            }
+        }
+        return index;
+    }
+
+    /**
+     * Asks the user for the number of sides of a dice and creates a new
+     * {@link Dice} object with that number of sides.
+     *
+     * @return a new {@link Dice} object created with the user's input.
+     */
+    private Dice makeDice() {
+        int side = inputDiceSideNumber();
+        Dice dice = new Dice(side);
+        return dice;
+    }
+
+    /**
+     * Asks the user for the number of sides of a dice and returns the
+     * number that the user entered.
+     *
+     * @return the number of sides of the dice that the user entered.
+     */
+    private int inputDiceSideNumber() {
+        System.out.print("Enter the number of sides: ");
+        int side = this.scanner.nextInt();
+        return side;
     }
 
     /**
